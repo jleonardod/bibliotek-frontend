@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import Login from "./pages/Login"
-import Dashboard from "./pages/Dashboard"
-import NotAuthorized from "./pages/NotAuthorized"
-import PrivateRoute from "./routes/PrivateRoute"
+import Login from "../pages/Login"
+import Dashboard from "../pages/Dashboard"
+import NotAuthorized from "../pages/NotAuthorized"
+import PrivateRoute from "./PrivateRoute"
 
-const App = () => {
+const AppRouter = () => {
   return(
     <Router>
       <Routes>
@@ -24,4 +24,4 @@ const App = () => {
   )
 }
 
-export default App
+export default AppRouter

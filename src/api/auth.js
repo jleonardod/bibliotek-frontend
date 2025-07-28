@@ -1,7 +1,27 @@
-import axios from "axios"
+export const loginRequest = async (credentials) => {
+  const frmData = new FormData()
+  frmData.append("username", credentials.username)
+  frmData.append("password", credentials.password)
 
-export const login = (username, password) => 
-  axios.post("http://localhost:8000/token", {username, password})
+  const response = await fetch("http://localhost:8000/token", {
+    method: "POST",
+    body: frmData,
+    redirect: "follow"
+  })
 
-export const getMe = (token) =>
-  axios.get("http://localhost:8000/users/me", {headers: {Authorization: `Bearer ${token}`}})
+  
+
+  if (!response.ok) throw new Error("Login Erroneo")
+  return response.json()
+}
+
+export const getMeRequest = async(token) => {
+  const response = await fetch("http://localhost:8000/users/me", {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  if(!response.ok) throw new Error("No se pudo obtener el usuario")
+  return response.json()
+}
