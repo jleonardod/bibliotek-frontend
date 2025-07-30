@@ -27,6 +27,10 @@ export const AuthProvider = ({ children }) => {
     await getMe(data.access_token)
   }
 
+  const register = async(userData) => {
+    console.log(userData)
+  }
+
   const loginDemo = async() => {
     const data = await loginDemoRequest()
     localStorage.setItem("token", data.access_token)
@@ -52,7 +56,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, loading, loginDemo}}>
+    <AuthContext.Provider value={{ user, token, login, logout, loading, loginDemo, register}}>
       {children}
     </AuthContext.Provider>
   )
