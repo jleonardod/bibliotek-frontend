@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react"
-import { loginRequest, getMeRequest } from "../api/auth.js"
+import { loginRequest, getMeRequest, loginDemoRequest } from "../api/auth.js"
 
 const AuthContext = createContext()
 
@@ -15,14 +15,20 @@ export const AuthProvider = ({ children }) => {
     if(savedToken && savedUser){
       setUser(JSON.parse(savedUser))
       setToken(savedToken)
-      
-      //getMe(savedToken)
     }
     setLoading(false)
   }, [])
 
   const login = async(credentials) => {
     const data = await loginRequest(credentials)
+    localStorage.setItem("token", data.access_token)
+    setToken(data.access_token)
+
+    await getMe(data.access_token)
+  }
+
+  const loginDemo = async() => {
+    const data = await loginDemoRequest()
     localStorage.setItem("token", data.access_token)
     setToken(data.access_token)
 
@@ -46,7 +52,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, loading}}>
+    <AuthContext.Provider value={{ user, token, login, logout, loading, loginDemo}}>
       {children}
     </AuthContext.Provider>
   )

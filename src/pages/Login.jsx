@@ -6,8 +6,9 @@ const Login = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
+  const [loadingDemo, setLoadingDemo] = useState(false)
   const [error, setError] = useState(false)
-  const { login, user, token } = useAuth()
+  const { login, user, token, loginDemo } = useAuth()
   const navigate = useNavigate()
 
   if(user && token){
@@ -26,18 +27,30 @@ const Login = () => {
     }
   }
 
+  const handleDemoLogin = async(e) => {
+    e.preventDefault()
+    setLoadingDemo(true)
+    try {
+      await loginDemo()
+      navigate("/dashboard")
+    } catch(err) {
+      setError(true)
+      setLoadingDemo(false)
+    }
+  }
+
 
   return(
-    <div className="min-h-screen flex min-w-screen bg-[url('https://images.unsplash.com/photo-1588580000645-4562a6d2c839?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] overflow-x-hidden overflow-y-hidden px-16 py-10 bg-cover bg-no-repeat bg-center">
-      <div className="w-full bg-black/60 backdrop-blur-sm grid grid-cols-5 gap-2">
-        <div className="col-span-3 flex flex-col justify-center items-left pl-16 pr-24 text-white gap-y-4">
-          <h2 className="font-bold text-7xl">Bienvenido a <span className="text-green-600">Bibliotek</span></h2>
-          <p className="font-semibold leading-4">Explora, comparte y administra tus libros en un solo lugar, manten tu bilbioteca siempre organizada y descubre nuevas lecturas al alcance de un clic</p>
+    <div className="min-h-screen flex min-w-screen bg-[url('https://images.unsplash.com/photo-1588580000645-4562a6d2c839?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] overflow-x-hidden overflow-y-hidden md:px-16 md:py-10 bg-cover bg-no-repeat bg-center">
+      <div className="w-full bg-black/60 backdrop-blur-sm md:grid md:grid-cols-5 flex flex-col gap-2 px-2 md:px-0">
+        <div className="md:col-span-3 flex flex-col md:justify-center md:items-left text-center md:text-left py-10 md:pt-0 md:pl-16 md:pr-24 text-white gap-y-4">
+          <h2 className="font-bold md:text-7xl text-4xl">Bienvenido a <span className="text-green-600">Bibliotek</span></h2>
+          <p className="font-semibold leading-4 hidden md:block">Explora, comparte y administra tus libros en un solo lugar, manten tu bilbioteca siempre organizada y descubre nuevas lecturas al alcance de un clic</p>
         </div>
-        <div className="col-span-2 flex flex-col justify-center bg-black/40 backdrop-blur px-10 gap-y-16 text-white">
+        <div className="col-span-2 flex flex-col justify-center md:py-0 py-24 bg-black/40 backdrop-blur px-10 gap-y-16 text-white">
           <div className="flex flex-col gap-y-6 ">
             <div className="flex flex-col gap-y-3">
-              <h1 className="font-bold text-5xl text-left">Ingresa ahora</h1>
+              <h1 className="font-bold md:text-5xl text-4xl text-left">Ingresa ahora</h1>
               <p>Por favor ingresa tus credenciales o accede al demo</p>
             </div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
@@ -47,8 +60,10 @@ const Login = () => {
               <button className="font-semibold bg-green-800 rounded-sm h-12 text-lg cursor-pointer hover:bg-green-900 transition-all flex justify-center items-center" type="submit">
                 {loading ? <img className="w-[24px]" src="/loading.svg" alt="Cargando..." /> : "Iniciar Sesión"}
               </button>
-              <button className="font-semibold bg-white text-black rounded-sm py-1 text-lg cursor-pointer hover:bg-green-800 hover:text-white transition-all" type="submit">Live Demo</button>
             </form>
+            <button onClick={handleDemoLogin} className="font-semibold bg-white text-black rounded-sm py-1 text-lg cursor-pointer flex justify-center items-center hover:bg-green-800 hover:text-white transition-all">
+              {loadingDemo ? <img className="w-[24px]" src="/loading-black.svg" alt="Cargando..." /> : "Live Demo"}
+            </button>
           </div>
           <div className="w-full text-center font-semibold flex flex-col gap-y-2">
             <a href="" className="cursor-pointer transition-color hover:text-green-800">¿Olvidaste tu contraseña?</a>

@@ -9,8 +9,6 @@ export const loginRequest = async (credentials) => {
     redirect: "follow"
   })
 
-  
-
   if (!response.ok) throw new Error("Login Erroneo")
   return response.json()
 }
@@ -23,5 +21,14 @@ export const getMeRequest = async(token) => {
   })
 
   if(!response.ok) throw new Error("No se pudo obtener el usuario")
+  return response.json()
+}
+
+export const loginDemoRequest = async() => {
+  const response = await fetch("http://localhost:8000/demo", {
+    method: "POST",
+    redirect: "follow"
+  })
+
   return response.json()
 }
