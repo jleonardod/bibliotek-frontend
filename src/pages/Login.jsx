@@ -66,8 +66,8 @@ const Login = () => {
             </button>
           </div>
           <div className="w-full text-center font-semibold flex flex-col gap-y-2">
-            <a href="" className="cursor-pointer transition-color hover:text-green-800">¿Olvidaste tu contraseña?</a>
-            <a href="" className="cursor-pointer transition-color hover:text-green-800">¿No tienes aun una cuenta? Registrate</a>
+            <a href="/registro" className="cursor-pointer transition-color hover:text-green-800">¿Olvidaste tu contraseña?</a>
+            <a href="/registro" className="cursor-pointer transition-color hover:text-green-800">¿No tienes aun una cuenta? Registrate</a>
           </div>
         </div>
         
