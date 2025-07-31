@@ -13,6 +13,20 @@ export const loginRequest = async (credentials) => {
   return response.json()
 }
 
+export const registerRequest = async (userData) => {
+  const user = JSON.stringify(userData)
+  const headers = new Headers()
+  headers.append("Content-Type", "application/json")
+  const response = await fetch("http://localhost:8000/register", {
+    method: "POST",
+    headers: headers,
+    body: user
+  })
+
+  if (!response.ok) throw new Error("No se pudo registrar el usuario")
+  return response.json()
+}
+
 export const getMeRequest = async(token) => {
   const response = await fetch("http://localhost:8000/users/me", {
     headers: {

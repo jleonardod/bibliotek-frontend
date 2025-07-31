@@ -4,15 +4,16 @@ import { useNavigate, Navigate } from "react-router-dom"
 
 const Register = () => {
   const [name, setName] = useState("")
-  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const id_role = 2
   const [validate, setValidate] = useState(false)
   const [passwordConfirm, setPasswordConfirm] = useState("")
   const [errorPassword, setErrorPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [loadingDemo, setLoadingDemo] = useState(false)
   const [error, setError] = useState(false)
-  const { login, user, token, loginDemo, register } = useAuth()
+  const { user, token, loginDemo, register } = useAuth()
   const navigate = useNavigate()
 
   if(user && token){
@@ -23,7 +24,9 @@ const Register = () => {
     e.preventDefault()
     setLoading(true)
     try{
-      await register({name, username, password})
+      await register({name, email, id_role, password})
+      alert("Usuario registrado con exito")
+      navigate("/login")
     } catch (err) {
       setError(true)
       setLoading(false)
@@ -76,7 +79,7 @@ const Register = () => {
             </div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-y-3">
               <input className={`w-full bg-transparent border-0 border-b-2 ${error ? "border-red-800" : "border-white"} focus:border-green-500 focus:ring-0 p-2 focus:outline-none transition-colors text-lg font-semibold`} type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nombres"/>
-              <input className={`w-full bg-transparent border-0 border-b-2 ${error ? "border-red-800" : "border-white"} focus:border-green-500 focus:ring-0 p-2 focus:outline-none transition-colors text-lg font-semibold`} type="email" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Email"/>
+              <input className={`w-full bg-transparent border-0 border-b-2 ${error ? "border-red-800" : "border-white"} focus:border-green-500 focus:ring-0 p-2 focus:outline-none transition-colors text-lg font-semibold`} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email"/>
               <input className={`w-full bg-transparent border-0 border-b-2 ${error || validate ? "border-red-800" : "border-white"} focus:border-green-500 focus:ring-0 p-2 focus:outline-none transition-colors text-lg font-semibold`} type="password" value={password} onChange={(e) => validateConditionsPassword(e.target.value)} placeholder="Contraseña" />
               <p className={`${validate ? "block" : "hidden"} text-red-800 font-semibold text-sm -mt-2`}>La contraseña debe contener al menos 6 caracteres</p>
               <input className={`w-full bg-transparent border-0 border-b-2 ${error ? "border-red-800" : "border-white"} focus:border-green-500 focus:ring-0 p-2 focus:outline-none transition-colors text-lg font-semibold`} type="password" value={passwordConfirm} onChange={(e) => validatePassword(e.target.value)} placeholder="Confirmar Contraseña" />
