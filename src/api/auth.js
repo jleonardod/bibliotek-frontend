@@ -46,3 +46,16 @@ export const loginDemoRequest = async() => {
 
   return response.json()
 }
+
+export const recoveryPasswordRequest = async(email) => {
+  const frmData = new FormData()
+  frmData.append("email", email.username)
+  const response = await fetch("http://localhost:8000/forgot-password", {
+    method: "POST",
+    body: frmData,
+    redirect: "follow"
+  })
+  
+  if (!response.ok) throw new Error("Error al intentar recuperar la contraseña")
+  return response.json()
+}

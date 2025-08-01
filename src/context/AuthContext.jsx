@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react"
-import { loginRequest, getMeRequest, loginDemoRequest, registerRequest } from "../api/auth.js"
+import { loginRequest, getMeRequest, loginDemoRequest, registerRequest, recoveryPasswordRequest } from "../api/auth.js"
 
 const AuthContext = createContext()
 
@@ -50,6 +50,13 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  const recoveryPassword = async(email) => {
+    
+    const data = await recoveryPasswordRequest(email)
+    return data
+    
+  }
+
   const logout = () => {
     setToken(null)
     setUser(null)
@@ -57,7 +64,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, loading, loginDemo, register}}>
+    <AuthContext.Provider value={{ user, token, login, logout, loading, loginDemo, register, recoveryPassword}}>
       {children}
     </AuthContext.Provider>
   )

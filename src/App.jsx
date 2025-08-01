@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard"
 import NotAuthorized from "./pages/NotAuthorized"
 import PrivateRoute from "./routes/PrivateRoute"
 import Register from "./pages/Register"
+import RecoverPassword from "./pages/RecoverPassword"
 
 const App = () => {
   return(
@@ -12,6 +13,7 @@ const App = () => {
         <Route path='/' element={<Login/>}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/registro' element={<Register />}/>
+        <Route path='/recuperarPassword' element={<RecoverPassword />}/>
         <Route 
           path='/dashboard' 
           element={
